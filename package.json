@@ -1,0 +1,27 @@
+{
+  "name": "intrusion-detection-app",
+  "version": "1.0.0",
+  "description": "UNDER DEVELOPMENT!!!",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "onoff": "^6.0.0",
+    "pi-camera": "^1.3.0",
+    "unique-string": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adminseeker/intrusion-detection-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adminseeker/intrusion-detection-app/issues"
+  },
+  "homepage": "https://github.com/adminseeker/intrusion-detection-app#readme"
+}
