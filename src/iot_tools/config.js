@@ -1,7 +1,6 @@
 const Gpio = require("onoff").Gpio;
 const PiCamera = require("pi-camera");
 
-
 const buzzer = new Gpio("21","out");
 const pir = new Gpio(20,"in","both");
 
