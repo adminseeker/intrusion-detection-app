@@ -4,17 +4,16 @@ const Intrusion = require("../models/intrusions");
 pir.watch(async (error,value)=>{
     if(value){ 
         buzzer.writeSync(1);
-        setTimeout(()=>{
-            buzzer.writeSync(0);
-        },2000)
         const intrusion = new Intrusion({
             atTime: new Date()
         });
         try{
-            await intrusion.save().then(async (intrusion)=>{
-                piCamera.config.output = __dirname +"/../../images/" + intrusion._id + ".jpg";
-                await takePhoto(piCamera);
-            })
+            piCamera.config.output = __dirname +"/../../images/" + intrusion._id + ".jpg";
+            await takePhoto(piCamera);
+            await intrusion.save();
+            setTimeout(()=>{
+                buzzer.writeSync(0);
+            },2000)
         }catch(e){
             console.log(e);
         }    

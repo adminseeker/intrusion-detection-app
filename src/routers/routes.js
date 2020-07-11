@@ -60,8 +60,8 @@ router.delete("/intrusions/delete/:id",async(req,res)=>{
         }
         await fs.unlink(__dirname + "/../../images/"+req.params.id+".jpg",(error)=>{
             if(error) throw error;
-            res.send(intrusion);
         });
+        res.send(intrusion);
     }catch(e){
         console.log(e);
         res.status(500).send();
