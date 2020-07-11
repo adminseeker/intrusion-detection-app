@@ -2,8 +2,7 @@ const {buzzer,pir,piCamera,takePhoto} = require("./config");
 const Intrusion = require("../models/intrusions");
 
 pir.watch(async (error,value)=>{
-    if(value){
-        console.log("Intrusion detected"); 
+    if(value){ 
         buzzer.writeSync(1);
         setTimeout(()=>{
             buzzer.writeSync(0);
@@ -21,7 +20,6 @@ pir.watch(async (error,value)=>{
         }    
     }
     else{
-        console.log("Intrusion stopped");
         buzzer.writeSync(0);
     }
 })

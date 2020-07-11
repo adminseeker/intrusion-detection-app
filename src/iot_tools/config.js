@@ -14,9 +14,7 @@ const piCamera = new PiCamera({
 }); 
 
 const takePhoto = (piCamera)=>{
-    return piCamera.snap().then((result)=>{
-        console.log("captured");
-    }).catch((error)=>{
+    return piCamera.snap().catch((error)=>{
         console.log(error);
     })
 }
