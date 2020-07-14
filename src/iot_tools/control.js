@@ -1,7 +1,8 @@
 const {buzzer,pir,piCamera,takePhoto} = require("./config");
 const Intrusion = require("../models/intrusions");
 const Selection = require("../models/selections");
-
+const mailer = require("../mailer/mailer");
+const moment = require("moment");
 
 pir.watch(async (error,value)=>{
     if(value){
@@ -20,6 +21,19 @@ pir.watch(async (error,value)=>{
                 })
             }
             await intrusion.save();
+            if(selections.notifications){
+                let text=""
+                if(selections.camera){
+                   text = "Intrusion detected on " + moment(intrusion.atTime).format('MMMM Do YYYY h:mm:ss a') +"." + 
+                   "\nView the intrusion here: " + process.env.RPI_URL+"/intrusions/images/"+intrusion._id+".jpg" + ".";
+                }else{
+                   text = "Intrusion detected on " + moment(intrusion.atTime).format('MMMM Do YYYY h:mm:ss a')+"." +
+                   "\nSince You have turned off your camera, you can't view the intrusion.So please turn on your camera for view intrusions."
+                }
+                await mailer(process.env.LOGIN_EMAIL,text).catch((err)=>{
+                    console.log(err);
+                })
+            }
             setTimeout(()=>{
                 buzzer.writeSync(0);
             },2000)
