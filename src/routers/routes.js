@@ -1,10 +1,24 @@
 const express = require("express");
 const fs = require("fs");
+const auth = require("../middleware/auth");
 const Intrusion = require("../models/intrusions");
+const Selection = require("../models/selections");
 
 const router = new express.Router();
 
-router.get("/intrusions",async(req,res)=>{
+router.post("/verify",auth,(req,res)=>{
+    try{
+        if(req.body.password !== process.env.PASSWORD){
+            throw new Error();
+        }
+        res.send("authorized");
+    }catch(e){
+        res.status(401).send()
+    }
+
+})
+
+router.post("/intrusions",auth,async(req,res)=>{
     try{
         const intrusions = await Intrusion.find({});
         if(!intrusions){
@@ -16,21 +30,8 @@ router.get("/intrusions",async(req,res)=>{
         res.status(500).send();
     }
 })
-
-router.get("/intrusions/:id",async(req,res)=>{
-    try{
-        const intrusion = await Intrusion.findById(req.params.id);
-        if(!intrusion){
-            return res.status(404).send();
-        }
-        res.send(intrusion);
-    }catch(e){
-        console.log(e);
-        res.status(500).send();
-    }
-})
  
-router.delete("/intrusions/delete/all",async(req,res)=>{
+router.delete("/intrusions/delete/all",auth,async(req,res)=>{
     try{
         const intrusions = await Intrusion.deleteMany({});
         if(!intrusions){
@@ -52,7 +53,7 @@ router.delete("/intrusions/delete/all",async(req,res)=>{
     }
 })
 
-router.delete("/intrusions/delete/:id",async(req,res)=>{
+router.delete("/intrusions/delete/:id",auth,async(req,res)=>{
     try{
         const intrusion = await Intrusion.findOneAndDelete({_id:req.params.id});
         if(!intrusion){

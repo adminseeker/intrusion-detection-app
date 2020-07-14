@@ -10,7 +10,7 @@ const piCamera = new PiCamera({
     width:640,
     height:480,
     nopreview:true,
-    timeout:1000
+    timeout:500
 }); 
 
 const takePhoto = (piCamera)=>{
