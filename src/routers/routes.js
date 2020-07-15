@@ -59,9 +59,11 @@ router.delete("/intrusions/delete/:id",auth,async(req,res)=>{
         if(!intrusion){
           return  res.status(404).send();
         }
-        await fs.unlink(__dirname + "/../../images/"+req.params.id+".jpg",(error)=>{
-            if(error) throw error;
-        });
+        if(fs.existsSync(__dirname + "/../../images/"+req.params.id+".jpg")){
+            await fs.unlink(__dirname + "/../../images/"+req.params.id+".jpg",(error)=>{
+                if(error) throw error;
+            });
+        }
         res.send(intrusion);
     }catch(e){
         console.log(e);
