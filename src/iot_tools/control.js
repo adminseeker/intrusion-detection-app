@@ -45,4 +45,4 @@ pir.watch(async (error,value)=>{
         buzzer.writeSync(0);
     }
 })
- 
+  
