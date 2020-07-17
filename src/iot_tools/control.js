@@ -28,7 +28,7 @@ pir.watch(async (error,value)=>{
                    "\nView the intrusion here: " + process.env.RPI_URL+"/intrusions/images/"+intrusion._id+".jpg" + ".";
                 }else{
                    text = "Intrusion detected on " + moment(intrusion.atTime).format('MMMM Do YYYY h:mm:ss a')+"." +
-                   "\nSince You have turned off your camera, you can't view the intrusion.So please turn on your camera to view intrusions."
+                   "\nSince You have turned off your camera, you can't view this intrusion.So please turn on your camera to view intrusions."
                 }
                 await mailer(process.env.LOGIN_EMAIL,text).catch((err)=>{
                     console.log(err);
